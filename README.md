@@ -1,4 +1,3 @@
-# Pomodoro-Timer
 
 # ✦ GrindReceiptz
 > **"We print what you actually did."**
