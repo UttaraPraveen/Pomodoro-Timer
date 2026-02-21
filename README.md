@@ -4,9 +4,6 @@
 
 An immersive, personality-driven Pomodoro timer that tracks your "grind" and generates a vintage-style digital receipt of your productivity (or lack thereof). Built with a focus on high-end UI/UX, glassmorphism, and a touch of sass.
 
-![Project Status](https://img.shields.io/badge/Status-Complete-success?style=flat-square)
-![Vibe](https://img.shields.io/badge/Vibe-Minimalist--Cyber-blueviolet?style=flat-square)
-
 ---
 
 ## ✨ Features
@@ -44,3 +41,21 @@ GrindReceiptz/
 │   └── style.css       # Glassmorphism, receipt styling & theme logic
 ├── js/
    └── timer.js        # Personality data, Audio/Particle engines & state
+
+```
+
+---
+
+## 🤝 Code of Conduct
+
+Be respectful, kind, and collaborative.
+This project is meant to be a safe and fun learning environment for everyone.
+
+---
+
+## 📜 License
+
+This project is for **personal use and learning purposes**.
+Feel free to fork, remix, and customize it for your own game nights!
+
+---
