@@ -850,6 +850,7 @@ header {
 @keyframes confettiFall {
   to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
+
 /* ===== BACK TO DASHBOARD BUTTON ===== */
 .btn-back {
   position: absolute;
