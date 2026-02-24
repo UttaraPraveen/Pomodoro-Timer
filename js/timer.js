@@ -152,7 +152,12 @@ const MODE_LABELS = {
 
 // ==================== STATE ====================
 let personality    = 'asian-mom';
-let settings       = { work: 25, short: 5, long: 15 };
+// ✅ Load saved settings or use default
+let settings = {
+  work: parseInt(localStorage.getItem('gr-work')) || 25,
+  short: parseInt(localStorage.getItem('gr-short')) || 5,
+  long: parseInt(localStorage.getItem('gr-long')) || 15
+};
 let timerMode      = 'work';
 let totalSeconds   = settings.work * 60;
 let remaining      = totalSeconds;
@@ -848,16 +853,35 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 document.querySelectorAll('.sctrl').forEach(btn => {
   btn.addEventListener('click', () => {
+
     const s   = btn.dataset.setting;
     const dir = parseInt(btn.dataset.dir);
     const max = s === 'work' ? 60 : 30;
+
     settings[s] = Math.min(max, Math.max(1, settings[s] + dir));
+
+    // ✅ SAVE TO LOCAL STORAGE
+    localStorage.setItem('gr-work', settings.work);
+    localStorage.setItem('gr-short', settings.short);
+    localStorage.setItem('gr-long', settings.long);
+
     document.getElementById(`sval-${s}`).textContent = settings[s];
+
     if (s === timerMode) {
+
       totalSeconds = settings[s] * 60;
-      if (!running) { remaining = totalSeconds; updateDisplay(); }
+
+      if (!running) {
+
+        remaining = totalSeconds;
+        updateDisplay();
+
+      }
+
     }
+
     if (soundEnabled) playClick();
+
   });
 });
 
@@ -937,5 +961,11 @@ try {
 
 applyAccent('work');
 applyPersonality(personality);
+
+// ✅ Display saved settings
+document.getElementById('sval-work').textContent = settings.work;
+document.getElementById('sval-short').textContent = settings.short;
+document.getElementById('sval-long').textContent = settings.long;
+
 updateDisplay();
 updateSessionDots();
