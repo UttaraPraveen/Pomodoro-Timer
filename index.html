@@ -1,170 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GrindReceiptz — Focus Timer</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=Special+Elite&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas"></canvas>
 
-<!-- ===== ONBOARDING ===== -->
-<div id="onboarding">
-  <div class="onboard-card">
-    <div class="onboard-logo">✦ focus · timer · receipts</div>
-    <div class="onboard-title">Grind<span>Receiptz</span></div>
-    <div class="onboard-sub">// we print what you actually did</div>
-    <div class="onboard-label">Choose your vibe coach</div>
-    <div class="personality-grid">
-      <div class="personality-card selected" data-personality="asian-mom">
-        <span class="pcard-emoji">👩‍👧</span>
-        <div class="pcard-name">Strict Asian Mom</div>
-        <div class="pcard-quote">"Timer running. No excuses. Your cousin already finished."</div>
+  <!-- ===== ONBOARDING ===== -->
+  <div id="onboarding">
+    <div class="onboard-card">
+      <div class="onboard-logo">✦ focus · timer · receipts</div>
+      <div class="onboard-title">Grind<span>Receiptz</span></div>
+      <div class="onboard-sub">// we print what you actually did</div>
+      <div class="onboard-label">Choose your vibe coach</div>
+      <div class="personality-grid">
+        <div class="personality-card selected" data-personality="asian-mom">
+          <span class="pcard-emoji">👩‍👧</span>
+          <div class="pcard-name">Strict Asian Mom</div>
+          <div class="pcard-quote">"Timer running. No excuses. Your cousin already finished."</div>
+        </div>
+        <div class="personality-card" data-personality="chill-friend">
+          <span class="pcard-emoji">😌</span>
+          <div class="pcard-name">Chill Friend</div>
+          <div class="pcard-quote">"Hey… maybe focus a lil? No pressure tho bestie."</div>
+        </div>
+        <div class="personality-card" data-personality="corporate">
+          <span class="pcard-emoji">📊</span>
+          <div class="pcard-name">Corporate Manager</div>
+          <div class="pcard-quote">"Your productivity KPI is declining. Synergy now."</div>
+        </div>
+        <div class="personality-card" data-personality="philosopher">
+          <span class="pcard-emoji">🌀</span>
+          <div class="pcard-name">Existential Philosopher</div>
+          <div class="pcard-quote">"Time is an illusion. But deadlines are not."</div>
+        </div>
       </div>
-      <div class="personality-card" data-personality="chill-friend">
-        <span class="pcard-emoji">😌</span>
-        <div class="pcard-name">Chill Friend</div>
-        <div class="pcard-quote">"Hey… maybe focus a lil? No pressure tho bestie."</div>
-      </div>
-      <div class="personality-card" data-personality="corporate">
-        <span class="pcard-emoji">📊</span>
-        <div class="pcard-name">Corporate Manager</div>
-        <div class="pcard-quote">"Your productivity KPI is declining. Synergy now."</div>
-      </div>
-      <div class="personality-card" data-personality="philosopher">
-        <span class="pcard-emoji">🌀</span>
-        <div class="pcard-name">Existential Philosopher</div>
-        <div class="pcard-quote">"Time is an illusion. But deadlines are not."</div>
-      </div>
-    </div>
-    <button class="btn-start" id="btn-start">Start Grinding →</button>
-  </div>
-</div>
-
-<!-- ===== NOTIFICATIONS ===== -->
-<div class="notif" id="notif"></div>
-
-<!-- ===== THEME TOGGLE ===== -->
-<button class="theme-toggle" id="theme-toggle" title="Toggle theme (T)">
-  <span class="toggle-track-icons"><span>🌙</span><span>☀️</span></span>
-  <div class="toggle-thumb" id="toggle-thumb">🌙</div>
-</button>
-
-<!-- ===== PERSONALITY BADGE ===== -->
-<div class="personality-badge" id="personality-badge" title="Change coach">
-  <span id="pbadge-emoji">👩‍👧</span>
-  <span id="pbadge-name">Strict Asian Mom</span>
-</div>
-
-<!-- ===== MAIN APP ===== -->
-<div class="app" id="app">
-  <header>
-    <div class="session-dot" id="session-dot"></div>
-    <div class="logo">Grind<span id="logo-accent">Receiptz</span></div>
-  </header>
-
-  <div class="tabs">
-    <button class="tab active" data-mode="work">Focus</button>
-    <button class="tab" data-mode="short">Short Break</button>
-    <button class="tab" data-mode="long">Long Break</button>
-  </div>
-
-  <div class="timer-container">
-
-    <!-- ===== BACK BUTTON ADDED HERE ===== -->
-    <button class="btn-back" id="btn-back" title="Back to Dashboard">
-      ← Dashboard
-    </button>
-
-    <div class="ring-glow" id="ring-glow"></div>
-    <svg class="ring-svg" id="ring-svg" viewBox="0 0 320 320">
-      <circle class="ring-track" cx="160" cy="160" r="148"/>
-      <circle class="ring-progress" id="ring-progress" cx="160" cy="160" r="148"/>
-    </svg>
-    <div class="timer-face">
-      <div class="timer-label" id="timer-label">FOCUS SESSION</div>
-      <div class="timer-digits" id="timer-digits">25:00</div>
-      <div class="timer-session" id="timer-session">SESSION 1 OF 4</div>
-      <div class="personality-ticker" id="personality-ticker"></div>
-      <div class="session-dots" id="session-dots"></div>
+      <button class="btn-start" id="btn-start">Start Grinding →</button>
     </div>
   </div>
 
-  <div class="controls">
-    <button class="btn-icon" id="btn-reset" title="Reset (R)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/>
+  <!-- ===== NOTIFICATIONS ===== -->
+  <div class="notif" id="notif"></div>
+
+  <!-- ===== THEME TOGGLE ===== -->
+  <button class="theme-toggle" id="theme-toggle" title="Toggle theme (T)">
+    <span class="toggle-track-icons"><span>🌙</span><span>☀️</span></span>
+    <div class="toggle-thumb" id="toggle-thumb">🌙</div>
+  </button>
+
+  <!-- ===== PERSONALITY BADGE ===== -->
+  <div class="personality-badge" id="personality-badge" title="Change coach">
+    <span id="pbadge-emoji">👩‍👧</span>
+    <span id="pbadge-name">Strict Asian Mom</span>
+  </div>
+
+  <!-- ===== MAIN APP ===== -->
+  <div class="app" id="app">
+    <header>
+      <div class="session-dot" id="session-dot"></div>
+      <div class="logo">Grind<span id="logo-accent">Receiptz</span></div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab active" data-mode="work">Focus</button>
+      <button class="tab" data-mode="short">Short Break</button>
+      <button class="tab" data-mode="long">Long Break</button>
+    </div>
+
+    <div class="timer-container">
+
+      <!-- ===== BACK BUTTON ADDED HERE ===== -->
+      <button class="btn-back" id="btn-back" title="Back to Dashboard">
+        ← Dashboard
+      </button>
+
+      <div class="ring-glow" id="ring-glow"></div>
+      <svg class="ring-svg" id="ring-svg" viewBox="0 0 320 320">
+        <circle class="ring-track" cx="160" cy="160" r="148" />
+        <circle class="ring-progress" id="ring-progress" cx="160" cy="160" r="148" />
       </svg>
-    </button>
-    <button class="btn-main" id="btn-play" title="Play/Pause (Space)">
-      <svg id="play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-      <svg id="pause-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-    </button>
-    <button class="btn-icon" id="btn-skip" title="Skip (S)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="5 4 15 12 5 20"/><line x1="19" y1="5" x2="19" y2="19"/>
-      </svg>
-    </button>
-    <button class="btn-icon btn-receipt" id="btn-receipt" title="Print Receipt (P)">🧾</button>
-  </div>
-</div>
-
-<!-- ===== SETTINGS BAR ===== -->
-<div class="settings-bar">
-  <div class="setting-item">
-    <span class="setting-label">FOCUS</span>
-    <div class="setting-controls">
-      <button class="sctrl" data-setting="work" data-dir="-1">−</button>
-      <span class="sval" id="sval-work">25</span>
-      <button class="sctrl" data-setting="work" data-dir="1">+</button>
-    </div>
-  </div>
-  <div class="sep"></div>
-  <div class="setting-item">
-    <span class="setting-label">SHORT</span>
-    <div class="setting-controls">
-      <button class="sctrl" data-setting="short" data-dir="-1">−</button>
-      <span class="sval" id="sval-short">5</span>
-      <button class="sctrl" data-setting="short" data-dir="1">+</button>
-    </div>
-  </div>
-  <div class="sep"></div>
-  <div class="setting-item">
-    <span class="setting-label">LONG</span>
-    <div class="setting-controls">
-      <button class="sctrl" data-setting="long" data-dir="-1">−</button>
-      <span class="sval" id="sval-long">15</span>
-      <button class="sctrl" data-setting="long" data-dir="1">+</button>
-    </div>
-  </div>
-  <div class="sep"></div>
-  <div class="setting-item">
-    <span class="sound-toggle active" id="sound-toggle" title="Toggle sound">🔔</span>
-  </div>
-</div>
-
-<!-- ===== RECEIPT MODAL ===== -->
-<div id="receipt-overlay">
-  <div class="receipt-wrap">
-    <div class="receipt">
-      <div class="receipt-header">
-        <div class="receipt-store">GrindReceiptz</div>
-        <div class="receipt-sub">// your productivity, receipted</div>
-        <div class="receipt-date" id="receipt-date"></div>
-      </div>
-      <div class="receipt-body" id="receipt-body"></div>
-      <button class="receipt-close" id="receipt-close">Close & Keep Grinding</button>
-      <div class="receipt-footer">
-        <div class="receipt-barcode" id="receipt-barcode"></div>
-        THANK YOU · COME AGAIN · OR DON'T<br>NO REFUNDS ON LOST TIME
+      <div class="timer-face">
+        <div class="timer-label" id="timer-label">FOCUS SESSION</div>
+        <div class="timer-digits" id="timer-digits">25:00</div>
+        <div class="timer-session" id="timer-session">SESSION 1 OF 4</div>
+        <div class="personality-ticker" id="personality-ticker"></div>
+        <div class="session-dots" id="session-dots"></div>
       </div>
     </div>
-  </div>
-</div>
 
-<script src="js/timer.js"></script>
+    <div class="controls">
+      <button class="btn-icon" id="btn-reset" title="Reset (R)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10" />
+          <path d="M3.51 15a9 9 0 1 0 .49-4.5" />
+        </svg>
+      </button>
+      <button class="btn-main" id="btn-play" title="Play/Pause (Space)">
+        <svg id="play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5,3 19,12 5,21" />
+        </svg>
+        <svg id="pause-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+          <rect x="6" y="4" width="4" height="16" />
+          <rect x="14" y="4" width="4" height="16" />
+        </svg>
+      </button>
+      <button class="btn-icon" id="btn-skip" title="Skip (S)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 4 15 12 5 20" />
+          <line x1="19" y1="5" x2="19" y2="19" />
+        </svg>
+      </button>
+      <button class="btn-icon btn-receipt" id="btn-receipt" title="Print Receipt (P)">🧾</button>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS BAR ===== -->
+  <div class="settings-bar">
+    <div class="setting-item">
+      <span class="setting-label">FOCUS</span>
+      <div class="setting-controls">
+        <button class="sctrl" data-setting="work" data-dir="-1">−</button>
+        <span class="sval" id="sval-work">25</span>
+        <button class="sctrl" data-setting="work" data-dir="1">+</button>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="setting-item">
+      <span class="setting-label">SHORT</span>
+      <div class="setting-controls">
+        <button class="sctrl" data-setting="short" data-dir="-1">−</button>
+        <span class="sval" id="sval-short">5</span>
+        <button class="sctrl" data-setting="short" data-dir="1">+</button>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="setting-item">
+      <span class="setting-label">LONG</span>
+      <div class="setting-controls">
+        <button class="sctrl" data-setting="long" data-dir="-1">−</button>
+        <span class="sval" id="sval-long">15</span>
+        <button class="sctrl" data-setting="long" data-dir="1">+</button>
+      </div>
+    </div>
+    <div class="sep"></div>
+    <div class="setting-item">
+      <select id="ambient-select" class="ambient-select" title="Select ambient sound">
+        <option value="none">Ambient: None</option>
+        <option value="rain">Rain</option>
+        <option value="Soft_Instrumental">Instrumental</option>
+        <option value="Sea_waves">Waves</option>
+        <option value="white_noise">White Noise</option>
+      </select>
+      <button id="ambient-toggle" class="ambient-toggle" title="Play/Pause Ambient Sound">▶</button>
+    </div>
+    <div class="sep"></div>
+    <div class="setting-item">
+      <span class="sound-toggle active" id="sound-toggle" title="Toggle sound">🔔</span>
+    </div>
+  </div>
+
+  <!-- ===== RECEIPT MODAL ===== -->
+  <div id="receipt-overlay">
+    <div class="receipt-wrap">
+      <div class="receipt">
+        <div class="receipt-header">
+          <div class="receipt-store">GrindReceiptz</div>
+          <div class="receipt-sub">// your productivity, receipted</div>
+          <div class="receipt-date" id="receipt-date"></div>
+        </div>
+        <div class="receipt-body" id="receipt-body"></div>
+        <button class="receipt-close" id="receipt-close">Close & Keep Grinding</button>
+        <div class="receipt-footer">
+          <div class="receipt-barcode" id="receipt-barcode"></div>
+          THANK YOU · COME AGAIN · OR DON'T<br>NO REFUNDS ON LOST TIME
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/timer.js"></script>
+  <script src="js/ambient.js"></script>
 </body>
+
 </html>
