@@ -771,17 +771,41 @@ function applyPersonality(id) {
       this.tSpeed  = 0.01 + Math.random() * 0.02;
     }
     update() {
-      this.x       += this.vx;
-      this.y       += this.vy;
-      this.twinkle += this.tSpeed;
-      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+      let vx = this.vx; let vy = this.vy;
+      if (window.ambientVisualsEnabled && window.ambientEffect && window.ambientIsPlaying) {
+        if (window.ambientEffect === 'rain') { vy = 6; vx = 0; }
+        else if (window.ambientEffect === 'fireplace') { vy = -1 - Math.random() * 0.5; vx += (Math.random()-0.5)*0.2; }
+        else if (window.ambientEffect === 'Sea_waves') { vx = Math.sin(Date.now()/1000) * 1.5; vy = 0.05; }
+        else if (window.ambientEffect === 'nature') { vx = Math.sin(Date.now()/2000 + this.x) * 0.5 + 0.2; vy = Math.sin(Date.now()/1500 + this.y) * 0.5 - 0.2; }
+        else if (window.ambientEffect === 'white_noise') { vx = (Math.random()-0.5)*3; vy = (Math.random()-0.5)*3; }
+      }
+      this.x       += vx;
+      this.y       += vy;
+      // Normal drift speed, unless visually active
+      this.twinkle += (window.ambientVisualsEnabled && window.ambientEffect && window.ambientIsPlaying) ? (this.tSpeed * 2) : this.tSpeed;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) {
+        this.reset();
+        if (window.ambientVisualsEnabled && window.ambientEffect && window.ambientIsPlaying) {
+          if (window.ambientEffect === 'fireplace') this.y = H;
+          if (window.ambientEffect === 'rain') this.y = 0;
+          if (window.ambientEffect === 'nature') { this.x = Math.random() * W; this.y = H; } // Enter from bottom like leaves/spores
+        }
+      }
     }
     draw() {
       const alpha = this.opacity * (0.6 + 0.4 * Math.sin(this.twinkle));
       const light = document.documentElement.classList.contains('light');
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = light ? `rgba(60,55,80,${alpha})` : `rgba(232,233,245,${alpha})`;
+      if (window.ambientVisualsEnabled && window.ambientEffect === 'rain') {
+        if (ctx.ellipse) ctx.ellipse(this.x, this.y, this.r*0.5, this.r*5, 0, 0, Math.PI * 2);
+        else ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      } else {
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      }
+      let color = light ? `rgba(60,55,80,${alpha})` : `rgba(232,233,245,${alpha})`;
+      if (window.ambientVisualsEnabled && window.ambientEffect === 'fireplace') color = `rgba(255,100,50,${alpha})`;
+      if (window.ambientVisualsEnabled && window.ambientEffect === 'nature') color = `rgba(100, 200, 100, ${alpha * 0.8})`;
+      ctx.fillStyle = color;
       ctx.fill();
     }
   }

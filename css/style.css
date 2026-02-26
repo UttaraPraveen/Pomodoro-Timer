@@ -692,7 +692,7 @@ header {
   padding: 0;
   line-height: 1;
 }
-.ambient-toggle:hover { border-color: var(--accent); color: var(--text); }
+.ambient-toggle.active, .ambient-toggle:hover { border-color: var(--accent); color: var(--text); }
 
 
 /* ===== NOTIFICATION BANNER ===== */
