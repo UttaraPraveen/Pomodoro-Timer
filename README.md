@@ -6,6 +6,33 @@ An immersive, personality-driven Pomodoro timer that tracks your "grind" and gen
 
 ---
 
+## Screenshots
+
+Landing Page
+
+![alt text](<Screenshot 2026-02-27 055614.png>)
+
+Focus Mode
+
+![alt text](<Screenshot 2026-02-27 055804.png>)
+
+Short break
+
+![alt text](<Screenshot 2026-02-27 055919.png>)
+
+Long break
+
+![alt text](<Screenshot 2026-02-27 055954.png>)
+
+Light Theme
+
+![alt text](<Screenshot 2026-02-27 060048.png>)
+
+Dark Theme
+
+![alt text](<Screenshot 2026-02-27 060136.png>)
+
+---
 ## ✨ Features
 
 * **🎭 Coach Personalities:** Choose your "vibe coach" to keep you focused.
