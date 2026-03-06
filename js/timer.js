@@ -165,7 +165,7 @@ let running        = false;
 let interval       = null;
 let session        = 1;
 let completedWork  = 0;
-let soundEnabled   = true;
+let soundEnabled = localStorage.getItem("gr-sound") !== "false";
 let isDark         = true;
 let tickerInterval = null;
 let notifInterval  = null;
@@ -909,11 +909,19 @@ document.querySelectorAll('.sctrl').forEach(btn => {
   });
 });
 
-document.getElementById('sound-toggle').addEventListener('click', () => {
+ const soundToggle = document.getElementById('sound-toggle');
+
+// set icon based on saved preference
+soundToggle.textContent = soundEnabled ? '🔔' : '🔕';
+soundToggle.classList.toggle('active', soundEnabled);
+
+soundToggle.addEventListener('click', () => {
   soundEnabled = !soundEnabled;
-  const el = document.getElementById('sound-toggle');
-  el.textContent = soundEnabled ? '\uD83D\uDD14' : '\uD83D\uDD15';
-  el.classList.toggle('active', soundEnabled);
+
+  soundToggle.textContent = soundEnabled ? '🔔' : '🔕';
+  soundToggle.classList.toggle('active', soundEnabled);
+
+  localStorage.setItem("gr-sound", soundEnabled);
 });
 
 document.getElementById('theme-toggle').addEventListener('click', () => {
